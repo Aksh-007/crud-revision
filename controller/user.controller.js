@@ -1,14 +1,16 @@
-import User from "../models/user.schema.js"
+import User from "../models/user.schema.js";
+import asyncHandler from "../services/asyncHandler.js"
+import CustomError from "../utils/customError.js"
 
 export const home = async (req, res) => {
     res.send(`<h1>App is working </h1>`)
 }
 
-export const createUser = async (req, res) => {
+export const createUser = asyncHandler (async (req, res) => {
     try {
         const { name, address, email } = req.body
 
-        if (!name) throw new Error("Please enter name");
+        if (!name) throw new CustomError("Please enter name");
         if (!address) throw new Error("Please enter Address");
         if (!email) throw new Error("Please enter Email");
 
@@ -34,7 +36,7 @@ export const createUser = async (req, res) => {
             message: error.message
         })
     }
-}
+})
 
 export const getAllUsers = async (req, res) => {
     try {
