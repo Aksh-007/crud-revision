@@ -6,7 +6,9 @@ const asyncHandler = (fn) => async (req, res, next) => {
         console.log(error)
         res.status(error.code || 400).json({
             success: false,
-            message: error.message;
+            message: error.message,
         })
     }
 }
+
+export default asyncHandler;

@@ -11,11 +11,11 @@ export const createUser = asyncHandler (async (req, res) => {
         const { name, address, email } = req.body
 
         if (!name) throw new CustomError("Please enter name");
-        if (!address) throw new Error("Please enter Address");
-        if (!email) throw new Error("Please enter Email");
+        if (!address) throw new CustomError("Please enter Address");
+        if (!email) throw new CustomError("Please enter Email");
 
         const existingUser = await User.findOne({ email });
-        if (existingUser) throw new Error('Email already exist');
+        if (existingUser) throw new CustomError('Email already exist');
 
         const newUser = await User.create({
             name,
@@ -97,6 +97,7 @@ export const getUserById = async (req, res) => {
 export const deleteUser = async (req, res) => {
     try {
         const userId = req.params.id;
+        if(!userId) throw new CustomError()
         const deleteUser = await User.findByIdAndDelete(userId);
         res.status(200).json({
             success: true,
