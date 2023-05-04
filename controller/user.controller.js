@@ -10,9 +10,9 @@ export const createUser = asyncHandler (async (req, res) => {
     try {
         const { name, address, email } = req.body
 
-        if (!name) throw new CustomError("Please enter name");
-        if (!address) throw new CustomError("Please enter Address");
-        if (!email) throw new CustomError("Please enter Email");
+        if (!name) throw new CustomError("Please enter name",400);
+        if (!address) throw new CustomError("Please enter Address",400);
+        if (!email) throw new CustomError("Please enter Email",400);
 
         const existingUser = await User.findOne({ email });
         if (existingUser) throw new CustomError('Email already exist');
